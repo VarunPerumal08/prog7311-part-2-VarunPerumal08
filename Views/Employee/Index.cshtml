@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AgriEnergyConnect.Models.Farmer>
+
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<h1>Farmers List</h1>
+
+<p>
+    <a asp-action="AddFarmer" class="btn btn-success">Add New Farmer</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Farmer Name</th>
+            <th>Farm Name</th>
+            <th>Location</th>
+            <th>Farm Size</th>
+            <th>Specialization</th>
+            <th>Products Count</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var farmer in Model)
+        {
+            <tr>
+                <td>@farmer.User.FirstName @farmer.User.LastName</td>
+                <td>@farmer.FarmName</td>
+                <td>@farmer.FarmLocation</td>
+                <td>@(farmer.FarmSize?.ToString() ?? "N/A")</td>
+                <td>@(farmer.Specialization ?? "N/A")</td>
+                <td>@farmer.Products.Count</td>
+                <td>
+                    <a asp-action="ViewProducts" asp-route-farmerId="@farmer.FarmerId" class="btn btn-info btn-sm">View Products</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

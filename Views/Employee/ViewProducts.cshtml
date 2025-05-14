@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AgriEnergyConnect.Models.Product>
+
+@{
+    ViewData["Title"] = "View Products";
+    var farmer = ViewBag.Farmer as AgriEnergyConnect.Models.Farmer;
+    var categories = ViewBag.Categories as IEnumerable<AgriEnergyConnect.Models.ProductCategory>;
+}
+
+<h1>Products for @farmer.FarmName</h1>
+<h4>Owner: @farmer.User.FirstName @farmer.User.LastName</h4>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>Filters</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" asp-action="ViewProducts" asp-route-farmerId="@farmer.FarmerId">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="searchTerm">Search Term</label>
+                        <input type="text" class="form-control" name="searchTerm" value="@Context.Request.Query["searchTerm"]" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="categoryFilter">Category</label>
+                        <select class="form-control" name="categoryFilter">
+                            <option value="">All Categories</option>
+                            @foreach (var category in categories)
+                            {
+                                <option value="@category.CategoryName"
+                                        selected="@(Context.Request.Query["categoryFilter"] == category.CategoryName)">
+                                    @category.CategoryName
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="fromDate">From Date</label>
+                        <input type="date" class="form-control" name="fromDate" value="@Context.Request.Query["fromDate"]" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="toDate">To Date</label>
+                        <input type="date" class="form-control" name="toDate" value="@Context.Request.Query["toDate"]" />
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Apply Filters</button>
+            <a asp-action="ViewProducts" asp-route-farmerId="@farmer.FarmerId" class="btn btn-secondary mt-2">Clear Filters</a>
+        </form>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Production Date</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Organic</th>
+            <th>Available</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductName</td>
+                <td>@product.Category.CategoryName</td>
+                <td>@product.ProductionDate.ToShortDateString()</td>
+                <td>@product.Quantity</td>
+                <td>@(product.Price?.ToString("C") ?? "N/A")</td>
+                <td>@(product.IsOrganic ? "Yes" : "No")</td>
+                <td>@(product.IsAvailable ? "Yes" : "No")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Back to Farmers List</a>

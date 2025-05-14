@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<ul class="navbar-nav">
+    @{
+        var username = HttpContextAccessor.HttpContext?.Session.GetString("Username");
+        var roleId = HttpContextAccessor.HttpContext?.Session.GetInt32("RoleId");
+    }
+
+    @if (username != null)
+    {
+        <li class="nav-item px-3">
+            <span class="nav-link text-dark">Hello @username!</span>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item px-3">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>
