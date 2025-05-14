@@ -13,7 +13,7 @@ namespace AgriEnergyConnect.Services
             _logger = logger;
         }
 
-        // Async version to match controller call
+
         public async Task<User?> AuthenticateAsync(string username, string password)
         {
             return await Task.Run(() => Authenticate(username, password));
@@ -23,14 +23,14 @@ namespace AgriEnergyConnect.Services
         {
             try
             {
-                // Hardcoded test users - TEMPORARY DEVELOPMENT ONLY
+            
                 var testUsers = new List<User>
                 {
                     new User
                     {
                         UserId = 1,
                         Username = "farmer1",
-                        Password = "password123", // Not hashed for simplicity
+                        Password = "password123",
                         Email = "farmer@test.com",
                         FirstName = "John",
                         LastName = "Doe",

@@ -4,6 +4,11 @@ using AgriEnergyConnect.Models.ViewModels;
 using AgriEnergyConnect.Data;
 using Microsoft.EntityFrameworkCore;
 
+
+/**Code Attribute
+    /* https://stackoverflow.com/questions/1015813/what-goes-into-the-controller-in-mvc
+    /*Author: victor hugo*/
+
 namespace AgriEnergyConnect.Controllers
 {
     public class EmployeeController : Controller
@@ -43,7 +48,7 @@ namespace AgriEnergyConnect.Controllers
             var user = new User
             {
                 Username = model.Username,
-                Password = HashPassword(model.Password), // In production, use proper password hashing
+                Password = HashPassword(model.Password), 
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,

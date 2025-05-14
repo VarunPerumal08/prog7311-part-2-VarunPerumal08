@@ -2,17 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using AgriEnergyConnect.Data;
 using AgriEnergyConnect.Services;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity; // Added for enhanced security
+using Microsoft.AspNetCore.Identity; 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+
 builder.Services.AddControllersWithViews();
 
-// Configure HTTP context access
 builder.Services.AddHttpContextAccessor();
 
-// Add database context with retry logic for reliability
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -25,10 +24,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         });
 });
 
-// Enhanced AuthService registration with logging
+
 builder.Services.AddScoped<AuthService>();
 
-// Configure session with security enhancements
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);

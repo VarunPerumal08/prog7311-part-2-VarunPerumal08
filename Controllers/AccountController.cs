@@ -2,8 +2,14 @@
 using AgriEnergyConnect.Services;
 using Microsoft.AspNetCore.Mvc;
 
+/**Code Attribute
+    /* https://stackoverflow.com/questions/1015813/what-goes-into-the-controller-in-mvc
+    /*Author: victor hugo*/
+
+
 namespace AgriEnergyConnect.Controllers
 {
+    
     public class AccountController : Controller
     {
         private readonly AuthService _authService;
